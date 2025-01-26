@@ -206,13 +206,14 @@ public class PluginModernizer {
             }
             plugin.fetch(ghService);
             plugin.commit(ghService);
-            if (plugin.hasChangesPushed()) {
-                plugin.fork(ghService);
-                plugin.sync(ghService);
-            }
             plugin.getRemoteRepository(ghService);
             plugin.push(ghService);
-            plugin.openPullRequest(ghService);
+            if (plugin.hasChangesPushed()) {
+                plugin.fork(ghService);
+                plugin.getRemoteRepository(ghService);
+                plugin.sync(ghService);
+                plugin.openPullRequest(ghService);
+            }
 
             if (plugin.hasErrors()) {
                 LOG.info("Plugin {} has errors. Will not process this plugin.", plugin.getName());
